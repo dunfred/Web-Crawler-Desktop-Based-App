@@ -1,0 +1,208 @@
+#: import C kivy.utils.get_color_from_hex
+
+<WindowManager>:
+    LoginScreen:
+    SearchScreen:
+    ResultsScreen:
+
+
+#C("#ae00ff")
+<LoginScreen>:
+    name: "login"
+    text1: _txt1
+    text2: _txt2
+    id: "loginPG"
+    padding: 10
+    spacing: 10
+    back_color: C("#ae00ff")
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "gradient_good.jpg"            
+
+    ScrollView:          
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            padding: 15
+            spacing: 15
+            BoxLayoutCanvas:
+                #source: "disco.png"
+                orientation: "vertical"
+                back_color: (0, 0, 0, .2)
+                size_hint: .85, .7
+                Label:
+                    text: "Welcome to LeoROn"
+                    background_normal: "gradient_good.jpg"
+                    
+                BoxLayout:
+                    orientation: "vertical"
+                    AnchorLayout:
+                        anchor_x: "center"
+                        anchor_y: "center"
+                        padding: 15
+                        spacing: 15
+                        BoxLayout:
+                            size_hint: .8, .45
+                            padding: 15
+                            spacing: 15
+                            AnchorLayout:
+                            	anchor_x: "left"
+                            	anchor_y: "center"
+                                SmoothLabel:
+                                    id: LeoBtn
+                                    text: "[color=#FFFFFF]Leo ID[/color]"
+                                    #text_size: self.size    
+                                    back_color: 0,0,0,0
+                                    pos_hint: {"left":1,}
+                                    size_hint: .75, .25
+
+                            TexTInputField:
+                                id: _txt1
+                                text: "Username"
+                                multiline: False		
+                                keyboard_suggestions: True	
+                                #pos_hint: {"center_y":.5}
+                                #size_hint: .75, .25	
+                                on_focus: 
+                                    root.show_pane("txt1")
+                                    root.animateTextfieldOpen("txt1")
+                                    LeoBtn.height - int(LeoBtn.height)*.5
+                                    
+                    AnchorLayout:
+                        anchor_x: "center"
+                        anchor_y: "center"   
+                        padding: 15
+                        spacing: 15
+                        BoxLayout:
+                            size_hint: .8, .45
+                            padding: 15
+                            spacing: 15
+                            AnchorLayout:
+                            	anchor_x: "left"
+                            	anchor_y: "center"
+                            	SmoothLabel:
+                                	id: PassBtn
+                                	text: "[color=#FFFFFF]Password[/color]"
+                                	back_color: 0,0,0,0
+                                	pos_hint: {"top":.6}
+                                	size_hint: .75, .25
+                                            
+                            TexTInputField:
+                                id: _txt2
+                                password: True                                
+                                text: "Password"
+                                #multiline: False
+                                #keyboard_suggestions: True
+                                #pos_hint: {"top":.6}
+                                #size_hint: .75, .25
+                                on_focus: 
+                                    root.show_pane("txt2")
+                                    root.animateTextfieldOpen("txt2")
+                                    PassBtn.height - int(PassBtn.height)*.5
+                                    
+                BoxLayout:
+                	padding: 10
+                    spacing: 10
+                    ButtonCanvas:
+                    	text: "Sign In"
+                    	pos_hint: {"center_x": .5, "center_y":.5}
+                    	size_hint: .8, .4
+                        on_release: 
+                            app.root.current="search" 
+                            root.manager.transition.direction= "left"
+                    ButtonCanvas:
+                        text: "Sign Up"
+                        pos_hint: {"center_x": .5, "center_y":.5}
+                    	size_hint: .8, .4
+
+<SearchScreen>:
+    name: "search"
+    search_text: _search_text
+    #rst_text: self.py_rst_text
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            RstDocument:
+                text:"LeoRon Books.io\n----------------\nHere is the search input field tab."
+            BoxLayout:
+                size_hint: .4, .1
+                pos_hint: {"center_x": .5, "center_y": .5}
+                Button:
+                    #size_hint: 1, .2
+                    #pos_hint: {'left': 1, 'top':1}
+                    text: 'Search'
+                    font_size: self.height * 0.5
+                    on_press: root.do_search()
+                    on_release: 
+                        app.root.current= "results"
+                        root.manager.transition.direction= "left"
+                TextInput:
+                    id: _search_text
+                    #size_hint: 1, .2
+                    #pos_hint: {'left': 1, 'top':1}
+                    font_size: self.height * 0.5
+                    multiline: False                
+        Label:
+            text: ""
+            size_hint: .3, .3
+            Image: 
+                source: "Gif1.gif"
+                size: self.width, self.height
+                anim_delay: .0
+                
+        BoxLayout:
+            #orientation: "vertical"
+            size_hint: .3, .08
+            pos_hint: {"top": 1, "right": 1}
+            padding: 10
+            spacing: 10
+            ButtonCanvas:
+                text: 'login page'
+                back_color: 0,0,0,.3
+                on_press:
+                    app.root.current= "login"
+                    root.manager.transition.direction= "up"
+            ButtonCanvas:
+                text: 'results page'
+                back_color: 0,0,0,.3
+                on_press:
+                    app.root.current= "results"
+                    root.manager.transition.direction= "down"
+
+        GridLayout:
+            cols: 1
+            size_hint: .1, .08
+            pos_hint: {"top": 1, "left": 1}
+            SmoothLabel:
+                text: "More Opitons"
+                font_size: self.height * 0.5
+                size_hint: .8, .8
+
+
+
+<ResultsScreen>:
+    name: "results"
+    py_rst_text: _rst_text
+    FloatLayout:
+        ScrollView:
+            RstDocument:
+                markup: True
+                id: _rst_text
+                text: "LeoRon Books.io\n----------------\n``Here are your search queries third tab``"
+    ButtonCanvas:
+        text: "Go back"
+        back_color: 0,0,0,.3
+        size_hint: .1, .1
+        pos_hint: {"top":1, "right":1}
+        on_release: 
+            app.root.current="search"
+            root.manager.transition.direction= "left"
+
+                    
+
+
+
+
+

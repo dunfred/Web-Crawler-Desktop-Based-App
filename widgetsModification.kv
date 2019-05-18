@@ -1,0 +1,56 @@
+
+<SmoothLabel@Label>:
+	markup: True
+	background_color: 1,1,1,1
+	background_normal: ""	
+	back_color: (0, 0, 0, .25)
+	border_radius: [2,12,2,12]
+	canvas.before: 
+		Color:
+			rgba: self.back_color
+		RoundedRectangle:	
+			size: self.size
+			pos: self.pos
+			radius: self.border_radius
+
+
+<BoxLayoutCanvas@BoxLayout>:
+	background_color: 0,0,0,0
+	background_normal: ""	
+	back_color: 1,0,.5,1
+	border_radius: [5,30,5,30]
+	canvas.before: 
+        Color:
+	        rgba: self.back_color
+		RoundedRectangle:	
+			size: self.size
+			pos: self.pos
+			radius: self.border_radius
+            
+
+<TexTInputField@TextInput>:
+    background_color: 0,0,0,1
+	background_normal: ""	
+	back_color: (0, 0, 0, .25)
+	border_radius: [2,18,2,18]
+	canvas.before: 
+		Color:
+			rgba: self.back_color
+		RoundedRectangle:	
+			size: self.size
+			pos: self.pos
+			radius: self.border_radius
+
+<ButtonCanvas@Button>:
+    background_color: 0,0,0,0
+	background_normal: ""	
+	back_color: 1,0,.5,1
+	font_color: 1,1,1,1
+	border_radius: [12,12,2,12]
+	canvas.before: 
+        Color:
+	        rgba: self.back_color
+		RoundedRectangle:	
+			size: self.size
+			pos: self.pos
+			radius: self.border_radius
